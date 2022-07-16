@@ -78,11 +78,13 @@ WSGI_APPLICATION = 'Heroku.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'CLA',
-        'USER': 'postgres',
-        'PASSWORD': '3144',
-        'HOST': 'localhost'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR/ 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': 'CLA',
+        # 'USER': 'postgres',
+        # 'PASSWORD': '3144',
+        # 'HOST': 'localhost'
     }
 }
 
@@ -126,7 +128,6 @@ STATICFILES_DIRS = [
     os.path.join( BASE_DIR , 'Static')
 ]
 STATIC_ROOT = os.path.join( BASE_DIR, 'staticRoot')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join( BASE_DIR , 'Media')
