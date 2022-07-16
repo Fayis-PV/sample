@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,12 +26,14 @@ SECRET_KEY = 'django-insecure-hx7x_-w3ks!np@y=r*byaviri=jsg)b5)lkvg!y4!^s$^yrhiu
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['sample.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['sampleappforhost.herokuapp.com','127.0.0.1']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts.apps.AccountsConfig',
+    'cla.apps.ClaConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,7 +57,7 @@ ROOT_URLCONF = 'Heroku.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR,'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,7 +79,12 @@ WSGI_APPLICATION = 'Heroku.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR/ 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': 'CLA',
+        # 'USER': 'postgres',
+        # 'PASSWORD': '3144',
+        # 'HOST': 'localhost'
     }
 }
 
@@ -116,6 +124,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    os.path.join( BASE_DIR , 'Static')
+]
+STATIC_ROOT = os.path.join( BASE_DIR, 'staticRoot')
+
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join( BASE_DIR , 'Media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
