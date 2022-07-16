@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 import os
+import dj_database_url
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -24,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-hx7x_-w3ks!np@y=r*byaviri=jsg)b5)lkvg!y4!^s$^yrhiu'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['sampleappforhost.herokuapp.com','127.0.0.1']
 
@@ -33,6 +34,7 @@ ALLOWED_HOSTS = ['sampleappforhost.herokuapp.com','127.0.0.1']
 
 INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
+    'whitenoise.runserver_nostatic',
     'cla.apps.ClaConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -86,6 +88,9 @@ DATABASES = {
         'HOST': 'localhost'
     }
 }
+
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 
 # Password validation
