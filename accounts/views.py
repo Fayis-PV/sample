@@ -1,6 +1,7 @@
 from email.message import EmailMessage
 import smtplib
 from django.contrib import messages
+from cla.views import is_json
 from cla.models import *
 from django.shortcuts import redirect, render
 from django.contrib import auth
@@ -9,6 +10,8 @@ from django.contrib.auth.models import User
 # Create your views here.
 
 def login(req):
+    if is_json(req):
+        return redirect('/')
     if req.method =='POST':
         username = req.POST['username']
         password = req.POST['password']
@@ -25,6 +28,8 @@ def login(req):
     return render(req,'login.html')
 
 def register(req):
+    if is_json(req):
+        return redirect('/login')
     if req.method == 'POST':
         first_name =  req.POST['first_name']
         last_name = req.POST['last_name']
