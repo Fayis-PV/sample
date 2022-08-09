@@ -1,4 +1,4 @@
-{% extends 'home_base.html' %}
+{% extends 'nohome_base.html' %}
 {% load static %}
 {% block title %} Home {% endblock title %}
 {% block content %}
@@ -172,67 +172,18 @@
          <div class="col-md-12">
             <div class="our_products">
                <div class="row">
-                  <!-- {% if product_list %}
-                  <h3>Product_list</h3>
-                  {% endif %} -->
-                  <!-- {% for product in product_list %}
-                  <div class="col-md-4 margin_bottom1">
+                  {% if rand_product_list %}
+                  {%for product in rand_product_list %}
+                  <div class="col-md-4">
                      <div class="product_box">
-                        <figure><img src='{{product.product_img.url}}' alt="#"/></figure>
+                        <figure><img src="{{product.product_img.url}}" alt="#"/></figure>
                         <h3>{{product.product_name}}</h3>
                      </div>
                   </div>
-                  {% endfor %} -->
-                  <div class="col-md-4 margin_bottom1">
-                     <div class="product_box">
-                        <figure><img src="{% static 'images/product2.png' %}" alt="#"/></figure>
-                        <h3>Laptop</h3>
-                     </div>
-                  </div>
-                  <div class="col-md-4 margin_bottom1">
-                     <div class="product_box">
-                        <figure><img src="{% static 'images/product3.png' %}" alt="#"/></figure>
-                        <h3>Tablet</h3>
-                     </div>
-                  </div>
-                  <div class="col-md-4 margin_bottom1">
-                     <div class="product_box">
-                        <figure><img src="{% static 'images/product4.png' %}" alt="#"/></figure>
-                        <h3>Speakers</h3>
-                     </div>
-                  </div>
-                  <div class="col-md-4 margin_bottom1">
-                     <div class="product_box">
-                        <figure><img src="{% static 'images/product5.png' %}" alt="#"/></figure>
-                        <h3>internet</h3>
-                     </div>
-                  </div>
-                  <div class="col-md-4 margin_bottom1">
-                     <div class="product_box">
-                        <figure><img src="{% static 'images/product6.png' %}" alt="#"/></figure>
-                        <h3>Hardisk</h3>
-                     </div>
-                  </div>
-                  <div class="col-md-4">
-                     <div class="product_box">
-                        <figure><img src="{% static 'images/product7.png' %}" alt="#"/></figure>
-                        <h3>Rams</h3>
-                     </div>
-                  </div>
-                  <div class="col-md-4">
-                     <div class="product_box">
-                        <figure><img src="{% static 'images/product8.png' %}" alt="#"/></figure>
-                        <h3>Bettery</h3>
-                     </div>
-                  </div>
-                  <div class="col-md-4">
-                     <div class="product_box">
-                        <figure><img src="{% static 'images/product9.png' %}" alt="#"/></figure>
-                        <h3>Drive</h3>
-                     </div>
-                  </div>
+                  {% endfor %}
+                  {% endif %}
                   <div class="col-md-12">
-                     <a class="read_more" href="#">See More</a>
+                     <a class="read_more" href="{% url 'cla:product' %}">See More</a>
                   </div>
                </div>
             </div>
@@ -354,22 +305,23 @@
       </div>
       <div class="row">
          <div class="col-md-10 offset-md-1">
-            <form id="request" class="main_form">
+            <form action="{% url 'cla:contact' %}" method="post" id="request" class="main_form">
+               {% csrf_token %}
                <div class="row">
                   <div class="col-md-12 ">
-                     <input class="contactus" placeholder="Name" type="type" name="Name"> 
+                     <input class="contactus" placeholder="Name" type="type" name="Name" required> 
                   </div>
                   <div class="col-md-12">
-                     <input class="contactus" placeholder="Email" type="type" name="Email"> 
+                     <input class="contactus" placeholder="Email" type="type" name="Email" required > 
                   </div>
                   <div class="col-md-12">
-                     <input class="contactus" placeholder="Phone Number" type="type" name="Phone Number">                          
+                     <input class="contactus" placeholder="Phone Number" type="type" name="Phone Number" required>                          
                   </div>
                   <div class="col-md-12">
-                     <textarea class="textarea" placeholder="Message" type="type" Message="Name">Message </textarea>
+                     <textarea class="textarea" placeholder="Message" type="type" name="Message" required></textarea>
                   </div>
                   <div class="col-md-12">
-                     <button class="send_btn">Send</button>
+                     <button type="submit" class="send_btn">Send</button>
                   </div>
                </div>
             </form>

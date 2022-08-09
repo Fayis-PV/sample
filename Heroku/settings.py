@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['sampleappforhost.herokuapp.com','127.0.0.1']
 INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'cla.apps.ClaConfig',
+    'django_browser_reload',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -80,11 +82,11 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR/ 'db.sqlite3',
-        # 'ENGINE': 'django.db.backends.postgresql',
-        # 'NAME': 'CLA',
-        # 'USER': 'postgres',
-        # 'PASSWORD': '3144',
-        # 'HOST': 'localhost'
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'CLA',
+        'USER': 'postgres',
+        'PASSWORD': '3144',
+        'HOST': 'localhost'
     }
 }
 
@@ -129,8 +131,8 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = os.path.join( BASE_DIR, 'staticRoot')
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join( BASE_DIR , 'Media')
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join( BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
