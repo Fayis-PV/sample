@@ -79,7 +79,7 @@ class OrderItems(models.Model):
 
     @property
     def delete_item(self):
-        self.quantity = 0
+        self.quantity = 0 
         # return
 
 
