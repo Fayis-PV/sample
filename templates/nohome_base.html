@@ -213,8 +213,9 @@
 
                       console.log('productId: ' , productId, 'action: ',action,'url:',url)
                       console.log('User: ' ,user) 
-                      if(user== 'Anonymoususer'){
+                      if(user == 'AnonymousUser'){
                         console.log("Not logged In")
+                        UserLogin()
                       }else{
                         console.log('Logged In ...')
                         updateUserOrder(productId,action,url,itemQuantity,getCardId)
@@ -270,10 +271,25 @@
                    //  location.reload()
 
                   }
-                  ).catch(err=>{
+                  ).catch((err)=>{
                      console.log(err)
                   })
-            
+
+               }
+
+               function UserLogin(){
+                  url = '/register/login'
+                  fetch(url,
+                  {
+                     method : 'GET',
+               }).then((response)=>{
+                  console.log(response)
+               })
+               .then((data)=>{
+                  console.log(data)
+               }).catch((err)=>{
+                  console.log(err)
+               })
                }
        </script>
       
