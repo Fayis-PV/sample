@@ -1,0 +1,53 @@
+{% extends 'nohome_base.html' %}
+{% block title %}{{product}} - Details{% endblock title %}
+{% block content %}
+<div class="container">
+    <div class="row mt-2">
+        
+        <div class="col-md-6 justify-content-start d-flex p-4" style="min-height:80vh;box-sizing:border-box;">
+            <img class="p-1 mb-auto" src="{{product.image_url}}" alt="" style="width: 80%; height:auto;">
+        </div>
+        <div class="col-md-6 p-4" style="box-sizing:border-box; color:black">
+            <h1 class="h1 text-uppercase">{{product.product_name}}</h1>
+            <h5 class="h5">$ {{product.product_price}}</h5>
+            <p class="text-justify">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis dolor recusandae qui et voluptatum, ratione molestiae officiis neque iure! Aliquid id quisquam optio alias quidem vero voluptatibus, debitis asperiores fuga!
+            Voluptatem non assumenda eligendi laboriosam commodi adipisci cupiditate obcaecati, debitis alias, expedita modi. Beatae cumque suscipit distinctio reiciendis, maiores ducimus itaque doloribus omnis, animi veniam excepturi praesentium obcaecati earum fugit.</p>
+            <br><hr><br>
+            <div class="p-2 border">
+                <ul><br>
+                    <div class="h6 btn btn-info">Special Offers:</div>
+                    <hr>
+                    <li>
+                        <div>Lorem ipsum, dolor sit amet consectetur deleniti. Nostrum accusamus atque cupiditate error architecto beatae rem.</div>
+                    </li><hr>
+                    <li>
+                        <div>Lorem ipsum dolor, sit amet consectetur at dolorum officiis porro velit voluptatibus eum deserunt minus nesciunt quo sequi.</div>
+                    </li><hr>
+                    <li>
+                        <div>Lorem ipsum dolor, sit amet consectetur ndae voluptate amet. Doloribus laboriosam veritatis veniam magni quia iusto?</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <h5 class="h5">You may have like:</h5>
+    <div class=" row d-flex justify-content-center">
+        <div class="row"></div>
+        <button class="col-xs-1 bg-light mt-3 mb-3 align-content-center d-flex flex-wrap"><h1 class="h1"><i class="fa fa-angle-left"></i></h1></button>
+        <div class="col-xs-10"></div>
+        {% for each in all_product|slice:4 %}
+            <div class="col-md-2 col-sm-3 border p-3 m-3" >
+                <img src="{{each.image_url}}" alt="">
+                <h6 class="h6">{{each.product_name}}</h6>
+                <div class="btn-group" >
+                    <button class="btn btn-primary update-data" data-url="{% url 'cla:updateItem' %}" data-action="add" data-product="{{each.id}}" style="width:80%;">Add to Cart</button>
+                    <a href="{% url 'cla:detail' each.id %}"><button class="btn btn-info"><i class="fa fa-expand"></i></button></a>
+                </div>
+                
+            </div>
+        {% endfor %}
+        <button class="col-xs-1 bg-light mt-3 mb-3 align-content-center d-flex flex-wrap"><h1 class="h1"><i class="fa fa-angle-right"></i></h1></button>
+    </div>
+</div><br><br>
+{% endblock content %}

@@ -1,4 +1,5 @@
 {% load static %}
+{% load django_browser_reload %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,6 +10,7 @@
       <!-- mobile metas -->
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <meta http-equiv="cache-control" content="no-cache" />
       <!-- site metas -->
       <title>{% block title %}{% endblock title %} | C-L-A</title>
       <meta name="keywords" content="Django Python E-website Sample">
@@ -60,42 +62,49 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarsExample04">
                            <ul class="navbar-nav mr-auto">
-                              <li class="nav-item ">
+                              <!-- <li class="nav-item active">
                                  <a class="nav-link" href="{% url 'cla:index' %}">Home</a>
-                              </li>
-                              <li class="nav-item active">
+                              </li> -->
+                              <li class="nav-item">
                                  <a class="nav-link" href="{% url 'cla:about' %}">About</a>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" href="{% url 'cla:computer' %}">Computer</a>
-                              </li>
-                              <li class="nav-item">
-                                 <a class="nav-link" href="{% url 'cla:laptop' %}">Laptop</a>
+                                 <a class="nav-link" href="{% url 'cla:cart' %}">Cart <span class="badge badge-light mb-1" id="count" value="{{count}}">{{count}}</span></a>
                               </li>
                               <li class="nav-item">
                                  <a class="nav-link" href="{% url 'cla:product' %}">Products</a>
+                                 <!-- <ul>
+                                    <li class="">
+                                       <a class="nav-link" href="{% url 'cla:computer' %}">Computer</a>
+                                    </li>
+                                    <li class="">
+                                       <a class="nav-link" href="{% url 'cla:laptop' %}">Laptop</a>
+                                    </li>
+                                 </ul> -->
                               </li>
                               <li class="nav-item">
                                  <a class="nav-link" href="{% url 'cla:contact' %}">Contact Us</a>
                               </li>
+                              
                               {% if user.is_authenticated %}
                               <li class="nav-item">
                                  <h4 class="nav-text" style=" padding: 0 25p;color: rgb(90, 220, 249);font-size: 14px;line-height: 20px;font-weight: 500;">Hello, {{user.first_name}} <br>{{user.last_name}}</h4>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" href="{% url 'accounts:logout' %}">Logout</a>
+                                 <a class="nav-link" id="confirm-logout" href="{% url 'accounts:logout' %}" onclick="return confirm('Are you sure you want to Logout?')">Logout</a>
                               </li>
                               {% else %}
                               <li class="nav-item">
-                                 <a class="nav-link" href="{% url 'accounts:register' %}">Register</a>
+                                 <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
                               </li>
                               <li class="nav-item">
-                                 <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
+                                 <a class="nav-link" href="{% url 'accounts:register' %}">Register</a>
                               </li>
                               {% endif %}
                               <li class="nav-item d_none">
                                  <a class="nav-link" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
                               </li>
+                              
                            </ul>
                         </div>
                      </nav>
@@ -139,7 +148,7 @@
                   <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
                      <form class="bottom_form">
                         <h3>Newsletter</h3>
-                        <input class="enter" placeholder="Enter your email" type="text" name="Enter your email">
+                        <input class="enter" placeholder="Enter your email" type="email" name="subscribe_email">
                         <button class="sub_btn">subscribe</button>
                      </form>
                   </div>
@@ -158,6 +167,8 @@
       </footer>
       <!-- end footer -->
       <!-- Javascript files-->
+      {% block script %}
+      {% endblock script %}
       <script src="{% static 'js/jquery.min.js' %}"></script>
       <script src="{% static 'js/popper.min.js' %}"></script>
       <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
@@ -165,5 +176,106 @@
       <!-- sidebar -->
       <script src="{% static 'js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
       <script src="{% static 'js/custom.js' %}"></script>
-   </body>
+      
+      <script type="text/javascript">
+         var user = '{{request.user}}'
+         
+         function getToken(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const csrftoken = getToken('csrftoken');
+         
+      </script>
+      <script>
+         var updateData = document.getElementsByClassName('update-data')
+       
+                for(var i = 0;i<updateData.length;i++){
+                   updateData[i].addEventListener('click',function(){
+                      var productId = this.dataset.product
+                      var action = this.dataset.action
+                      var url = this.dataset.url
+                      var itemQuantity = document.getElementById(productId)
+                      var cardId = 'card-'+productId
+                      var getCardId = document.getElementById(cardId)
+                     // check()
+
+                      console.log('productId: ' , productId, 'action: ',action,'url:',url)
+                      console.log('User: ' ,user) 
+                      if(user== 'Anonymoususer'){
+                        console.log("Not logged In")
+                      }else{
+                        console.log('Logged In ...')
+                        updateUserOrder(productId,action,url,itemQuantity,getCardId)
+         
+                      }
+                      
+                   })
+                   
+                 }
+                 function updateUserOrder(productId,action,url,itemQuantity,getCardId){
+                  var countBadge = document.getElementById('count')
+                  var itemsCount = document.getElementById('items-count')
+                  var allTotal = document.getElementById('all-total')
+
+                  var itemQuantity =itemQuantity
+                  var url = url
+                  fetch(url,
+                  {
+                        method: 'POST',
+                        headers: {
+                           'Content-Type': 'application/json',
+                           'X-CSRFToken': csrftoken
+                        },
+                      //  mode: 'same-origin', // Do not send CSRF token to another domain.
+                        body : JSON.stringify({'productId':productId,'action':action}),
+                     }
+                  )
+                  .then((response)=>{
+                     return response.json()
+                  })
+                  .then((data)=>{
+                     console.log('Data: ',data)
+                     counts = data.counts
+                     quantity = data.quantity
+                     all_total = data.all_total
+                     item_quantity = data.item_quantity
+                     items_count = data.items_count
+                     console.log('counts:',counts,
+                     'all_total:',all_total,
+                     'items_count:',items_count,
+                     'item-quantity:',item_quantity
+                     )
+                     allTotal.innerHTML = all_total
+                     
+                   //  itemQuantity.innerHTML =item_quantity
+                     itemsCount.innerHTML = items_count
+                     console.log("0<",item_quantity)
+                     if(item_quantity <= 0){
+                        console.log('itemQuantityif:',item_quantity)
+                        getCardId.className = 'd-none'}
+                     else{itemQuantity.value = item_quantity}
+                     countBadge.innerHTML = counts
+                   //  location.reload()
+
+                  }
+                  ).catch(err=>{
+                     console.log(err)
+                  })
+            
+               }
+       </script>
+      {% django_browser_reload_script %}
+   </body> 
 </html>

@@ -3,12 +3,12 @@
 {% block title %} Product {% endblock title %}
 {% block content %}
 <!-- products -->
-<div  class="products">
+<div class="products">
    <div class="container">
       <div class="row">
          <div class="col-md-12">
-            <div class="titlepage">
-               <h2>Our Products</h2>
+            <div class="titlepage ">
+               <h2 style="margin: auto;">Our Products</h2>
             </div>
          </div>
       </div>
@@ -16,60 +16,18 @@
          <div class="col-md-12">
             <div class="our_products">
                <div class="row">
+                  {% if rand_product_list %}
+                  {% for product in rand_product_list %}
                   <div class="col-md-4 margin_bottom1">
                      <div class="product_box">
-                        <figure><img src="{% static 'images/product1.png' %}" alt="#"/></figure>
-                        <h3>Computer</h3>
-                     </div>
+                        <figure><img src="{{product.product_img.url}}" alt="#"/></figure>
+                        <h3>{{product.product_name}}</h3>
+                        <button data-action="add" data-url="{% url 'cla:updateItem' %}" data-product="{{product.id}}" style="width: 57%;" class="btn btn-primary update-data">+Add to Cart</button>
+                        <a href="{% url 'cla:detail' product.id %}"><button class="btn btn-info"><i class="fa fa-expand"></i></button></a>
+                     </div> <input type="hidden" id="all-total" value=""><input type="hidden" id="items-count" value=""><input type="hidden" id="card-2" value="">
                   </div>
-                  <div class="col-md-4 margin_bottom1">
-                     <div class="product_box">
-                        <figure><img src="{% static 'images/product2.png' %}" alt="#"/></figure>
-                        <h3>Laptop</h3>
-                     </div>
-                  </div>
-                  <div class="col-md-4 margin_bottom1">
-                     <div class="product_box">
-                        <figure><img src="{% static 'images/product3.png' %}" alt="#"/></figure>
-                        <h3>Tablet</h3>
-                     </div>
-                  </div>
-                  <div class="col-md-4 margin_bottom1">
-                     <div class="product_box">
-                        <figure><img src="{% static 'images/product4.png' %}" alt="#"/></figure>
-                        <h3>Speakers</h3>
-                     </div>
-                  </div>
-                  <div class="col-md-4 margin_bottom1">
-                     <div class="product_box">
-                        <figure><img src="{% static 'images/product5.png' %}" alt="#"/></figure>
-                        <h3>internet</h3>
-                     </div>
-                  </div>
-                  <div class="col-md-4 margin_bottom1">
-                     <div class="product_box">
-                        <figure><img src="{% static 'images/product6.png' %}" alt="#"/></figure>
-                        <h3>Hardisk</h3>
-                     </div>
-                  </div>
-                  <div class="col-md-4">
-                     <div class="product_box">
-                        <figure><img src="{% static 'images/product7.png' %}" alt="#"/></figure>
-                        <h3>Rams</h3>
-                     </div>
-                  </div>
-                  <div class="col-md-4">
-                     <div class="product_box">
-                        <figure><img src="{% static 'images/product8.png' %}" alt="#"/></figure>
-                        <h3>Bettery</h3>
-                     </div>
-                  </div>
-                  <div class="col-md-4">
-                     <div class="product_box">
-                        <figure><img src="{% static 'images/product9.png' %}" alt="#"/></figure>
-                        <h3>Drive</h3>
-                     </div>
-                  </div>
+                  {% endfor %}
+                  {% endif %}
                   <div class="col-md-12">
                      <a class="read_more" href="#">See More</a>
                   </div>

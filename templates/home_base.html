@@ -1,4 +1,5 @@
 {% load static%}
+{% load django_browser_reload %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,6 +10,7 @@
         <!-- mobile metas -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+        <meta http-equiv="cache-control" content="no-cache" />
         <!-- site metas -->
         <title>{% block title %}{% endblock title %} | C-L-A </title>
         <meta name="keywords" content="">
@@ -70,31 +72,37 @@
                                  <li class="nav-item">
                                     <a class="nav-link" href="{% url 'cla:about' %}">About</a>
                                  </li>
-                                 <li class="nav-item ">
-                                    <a class="nav-link" href="{% url 'cla:computer' %}">Computer</a>
-                                 </li>
                                  <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'cla:laptop' %}">Laptop</a>
+                                    <a class="nav-link" href="{% url 'cla:cart' %}">Cart <span class="badge badge-light mb-1">{{order.cart_items}}</span></a>
                                  </li>
                                  <li class="nav-item">
                                     <a class="nav-link" href="{% url 'cla:product' %}">Products</a>
+                                    <!-- <ul>
+                                       <li class="">
+                                          <a class="nav-link" href="{% url 'cla:computer' %}">Computer</a>
+                                       </li>
+                                       <li class="">
+                                          <a class="nav-link" href="{% url 'cla:laptop' %}">Laptop</a>
+                                       </li>
+                                    </ul> -->
                                  </li>
                                  <li class="nav-item">
                                     <a class="nav-link" href="{% url 'cla:contact' %}">Contact Us</a>
                                  </li>
+                                 
                                  {% if user.is_authenticated %}
                                  <li class="nav-item">
                                     <h4 class="nav-text" style=" padding: 0 25p;color: rgb(90, 220, 249);font-size: 14px;line-height: 20px;font-weight: 500;">Hello, {{user.first_name}} <br>{{user.last_name}}</h4>
                                  </li>
                                  <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'accounts:logout' %}">Logout</a>
+                                    <a class="nav-link" id="confirm-logout" href="{% url 'accounts:logout' %}" onclick="return confirm('Are you sure you want to Logout?')">Logout</a>
                                  </li>
                                  {% else %}
                                  <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'accounts:register' %}">Register</a>
+                                    <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
                                  </li>
                                  <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
+                                    <a class="nav-link" href="{% url 'accounts:register' %}">Register</a>
                                  </li>
                                  {% endif %}
                                  <li class="nav-item d_none">
@@ -109,6 +117,16 @@
                </div>
             </div>
          </header>
+         <div>
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+               <strong>{{message}}</strong>
+               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+               </div>
+            {% endfor %}
+            {% endif %}
+         </div>
         {% block content %}
 
 
@@ -144,7 +162,7 @@
                         <form action="{% url 'accounts:subscribe' %}" class="bottom_form" method="post">
                            {% csrf_token %}
                            <h3>Newsletter</h3>
-                           <input class="enter" placeholder="Enter your email" type="text" name="subscribe_email">
+                           <input class="enter" placeholder="Enter your email" type="email" name="subscribe_email">
                            <button type="submit" class="sub_btn">subscribe</button>
                         </form>
                     </div>
@@ -154,7 +172,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                        <p>© 2019 All Rights Reserved. Design by<a href="{% static 'https://html.design/' %}"> Free Html Templates</a></p>
+                        <p>© 2019 All Rights Reserved. Design by<a href="'https://html.design/"> Free Html Templates</a></p>
                         </div>
                     </div>
                 </div>
@@ -170,5 +188,12 @@
         <!-- sidebar -->
         <script src="{% static 'js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
         <script src="{% static 'js/custom.js' %}"></script>
+        <script>
+         function logout(){
+            confirm('Are you sure you want logout')
+         }
+         
+        </script>
+        {% django_browser_reload_script %}
     </body>
 </html>
