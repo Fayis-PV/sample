@@ -15,9 +15,9 @@ def index(req):
         try:
             customer = Customer.objects.get(user = req.user)
         except:
-            redirect('/register/register')
+            return redirect('/register/register')
     else:
-        redirect('/register/register')
+        return redirect('/register/register')
     # customer.delete()
     # count= 0
     
@@ -199,7 +199,8 @@ def cart_count(req):
             order,create = Order.objects.get_or_create(customer=customer,complete =False)
             count= order.get_items_count
         except:
-            redirect('/register/register')
+            count = 0
+            return redirect('/register/register')
     else:
         count = 0
     return count
