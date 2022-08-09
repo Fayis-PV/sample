@@ -194,9 +194,12 @@ def add_to_checkout(req,product_id):
 
 def cart_count(req):
     if req.user.is_authenticated:
-        customer = Customer.objects.get(user = req.user)
-        order,create = Order.objects.get_or_create(customer=customer,complete =False)
-        count= order.get_items_count
+        try:
+            customer = Customer.objects.get(user = req.user)
+            order,create = Order.objects.get_or_create(customer=customer,complete =False)
+            count= order.get_items_count
+        except:
+            redirect('/register/register')
     else:
         count = 0
     return count
