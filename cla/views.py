@@ -11,9 +11,17 @@ from django.contrib import auth
 
 def index(req):
     count = cart_count(req)
-    # customer = Customer.objects.all()
+    if req.user:
+        try:
+            customer = Customer.objects.get(user = req.user)
+        except:
+            redirect('/register/register')
+    else:
+        redirect('/register/register')
     # customer.delete()
     # count= 0
+    
+
     product_list = Product.objects.all()[:6]
     rand_product_list = random.sample(list(product_list), k=6)
     context = {'rand_product_list': rand_product_list,'count': count}
@@ -118,7 +126,6 @@ def updateItem(req):
     productId = data['productId']
     action = data['action']
     # print('reloaded',productId,action)
-
     customer = Customer.objects.get(user = req.user)
     product = Product.objects.get(id = productId)
     order,created = Order.objects.get_or_create(customer = customer, complete =False)
@@ -135,7 +142,7 @@ def updateItem(req):
 
     # if orderItems.quantity <= 0:
     #     orderItems.delete()
-
+    cart(req)
     item_quantity = order.each_orderitems_quantity
     all_total = order.get_all_total
     items_count = order.get_items_count
