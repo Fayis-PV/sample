@@ -59,13 +59,13 @@
 
                                   <td scope="col"><div class="text-center">$ {{item.total_price}}</div></td>
                                   <td scope="col"><div class="btn-group">
-                                    <input type="submit" class="btn btn-success" value="Buy">
+                                    <input type="submit" class="btn btn-success" value="Buy"></form>
                                     <button type="button" data-product="{{item.product.id}}" data-url="{% url 'cla:updateItem' %}" data-action="delete" class="btn btn-danger update-data"><p>Remove</p></button>
                                 </div></td>
                                   <!-- <div class="col-sm-2"></div> -->
                                 
                           </tr>
-                          </div></form>
+                          
                 
 
                       {% endfor %}
