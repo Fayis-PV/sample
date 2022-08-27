@@ -43,9 +43,18 @@
                       {% for item in order_items %}
                       <form action="{% url 'cla:add_to_checkout' item.product.id %}" method="POST">
                         {% csrf_token %}
+                          <div class='card' id="card-{{item.product.id}}" style="width: 100%">
+                              <tr>
+                                  <td scope="col"><div class="text-center"><img style="width:30%;" src="{{item.product.product_img.url}}" alt=""></div></td>
+                                  <td scope="col"><div class="text-center">{{item.product.product_name}}</div></td>
+                                  <td scope="col"><div class="text-center">
+                              
+                              </tr>
+                          </div>
+                      </form>
                           
                           
-                              <tr class="card" id="card-{{item.product.id}}" style="width: 100%">
+<!--                               <tr class="card" id="card-{{item.product.id}}" style="width: 100%">
                                   <td scope="col"><div class="text-center"><img style="width:30%;" src="{{item.product.product_img.url}}" alt=""></div></td>
                                   <td scope="col"><div class="text-center">{{item.product.product_name}}</div></td>
                                   <td scope="col"><div class="text-center">
@@ -64,7 +73,7 @@
                                 </div></td>
                                   <!-- <div class="col-sm-2"></div> -->
                                 
-                          </tr>
+                          </tr> -->
                           
                 
 
