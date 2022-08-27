@@ -45,9 +45,7 @@
                         {% csrf_token %}
                           
                           <div class="card" id="card-{{item.product.id}}" style="width: 100%">
-                            <ul class="list-group list-group-flush">
-                              <li class="list-group-item">
-                                <tr>
+                              <tr>
                                   <td scope="col"><div class="text-center"><img style="width:30%;" src="{{item.product.product_img.url}}" alt=""></div></td>
                                   <td scope="col"><div class="text-center">{{item.product.product_name}}</div></td>
                                   <td scope="col"><div class="text-center">
@@ -66,9 +64,7 @@
                                   </div></td>
                                   <!-- <div class="col-sm-2"></div> -->
                                 
-                              <tr>
-                              </li>
-                            </ul>
+                          </tr>
                           </div>
                 
 
