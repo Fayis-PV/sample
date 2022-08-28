@@ -44,16 +44,16 @@
                     <br>
                   <tbody>
                       {% for item in order_items %}
-                      <div class='card' id="card-{{item.product.id}}" style="width: 100%">
-                          <tr>
+<!--                       <div > -->
+                          <tr class='card' id="card-{{item.product.id}}" style="width: 100%">
                               <form action="{% url 'cla:add_to_checkout' item.product.id %}" method="POST">
                               {% csrf_token %}
                                   <td scope="col"><div class="text-center"><img style="width:30%;" src="{{item.product.product_img.url}}" alt=""></div></td>
                                   <td scope="col"><div class="text-center">{{item.product.product_name}}</div></td>
                                   <td scope="col">
-                                      <div class="row btn-group text-center">
+                                      <div class="btn-group text-center">
                                         <div data-action="add"  data-product="{{item.product.id}}" data-url="{% url 'cla:updateItem' %}" class="col-sm-2 btn btn-info text-center m-1 p-1 update-data add-btn"><strong>+</strong></div>
-                                        <input class="col-sm-5 bg-light text-center m-1 border-light item-qty form-control" name="quantity" id="{{item.product.id}}"  value="{{item.quantity}}">
+                                        <input class="bg-light text-center m-1 border-light item-qty form-control p-0" name="quantity" id="{{item.product.id}}"  value="{{item.quantity}}">
                                         <div data-action="remove" onclick=check()  data-product="{{item.product.id}}" data-url="{% url 'cla:updateItem' %}" class="col-sm-2 btn btn-info text-center m-1 p-1 update-data min-btn"><strong>-</strong></div>
                                       </div>
                                   </td>
@@ -63,7 +63,7 @@
                                   <td scope="col"><button type="button" data-product="{{item.product.id}}" data-url="{% url 'cla:updateItem' %}" data-action="delete" class="btn btn-danger update-data" value="Remove"></td>
                               </form>
                           </tr>
-                      </div>
+<!--                       </div> -->
                       {% endfor %}
                           
                           
