@@ -25,9 +25,10 @@
                 </div>
             </div>
         </div>
+        <br>
         <div class="card well mb-1" style="width: 100%">
-            <div class="row g-3">
-              <div class="col-md-12">
+<!--             <div class="row g-3">
+              <div class="col-md-12"> -->
                 <table class="table tabl table-light">
                   <thead class='text-center'>
                     <tr>
@@ -36,9 +37,11 @@
                       <th scope="col">Quantity</th>
                       <th scope="col">Price</th>
                       <th scope="col">Total</th>
-                      <th scope="col">Cart</th>
-                    </tr>
-                  </thead>
+                        <th scope="col">Cart</th>
+                        <th scope="col">Delete</th>
+                      </tr>
+                    </thead>
+                    <br>
                   <tbody>
                       {% for item in order_items %}
                       <div class='card' id="card-{{item.product.id}}" style="width: 100%">
@@ -88,8 +91,8 @@
                       
                   </tbody>
                 </table>
-              </div>
-            </div>
+<!--               </div>
+            </div> -->
 </div>
         
         <br>
