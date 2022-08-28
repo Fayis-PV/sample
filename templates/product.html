@@ -24,7 +24,7 @@
                         <h3>{{product.product_name}}</h3>
                         <button data-action="add" data-url="{% url 'cla:updateItem' %}" data-product="{{product.id}}" style="width: 57%;" class="btn btn-primary update-data">+Add to Cart</button>
                         <a href="{% url 'cla:detail' product.id %}"><button class="btn btn-info"><i class="fa fa-expand"></i></button></a>
-                     </div> <input type="hidden" id="all-total" value=""><input type="hidden" id="items-count" value=""><input type="hidden" id="card-2" value=""><input type="hidden" id="2" value="">
+                     </div> <input type="hidden" id="all-total" value=""><input type="hidden" id="items-count" value=""><input type="hidden" id="card-2" value="">
                   </div>
                   {% endfor %}
                   {% endif %}
