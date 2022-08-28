@@ -11,6 +11,13 @@ from django.contrib import auth
 
 def index(req):
     count = cart_count(req)
+    if req.user:
+        try:
+            customer = Customer.objects.get(user = req.user)
+        except:
+            return redirect('/register/register')
+    else:
+        return redirect('/register/register')
     # customer.delete()
     # count= 0
     
@@ -66,17 +73,12 @@ def contact(req):
 def cart(req):
     count = cart_count(req)
     if req.user.is_authenticated:
-        try:
-            customer = Customer.objects.get(user = req.user)
-        except:
-            redirect('/register/register')
-
+        customer = Customer.objects.get(user = req.user)
         order , created = Order.objects.get_or_create(customer = customer, complete= False)
         order_items = order.orderitems_set.all()
     else:
-        return redirect('/register/register')
-        # order_items = []
-        # order = {'get_all_total':0, 'get_items_count':0 }
+        order_items = []
+        order = {'get_all_total':0, 'get_items_count':0 }
     # print(order_items)
     context = {
         'order_items' : order_items,
@@ -90,10 +92,7 @@ def cart(req):
 def checkout(req):
     count = cart_count(req)
     if req.user.is_authenticated:
-        try:
-            customer = Customer.objects.get(user = req.user)
-        except:
-            redirect('/register/register')
+        customer = Customer.objects.get(user = req.user)
         order = Order.objects.get(customer = customer)
         order_items = order.orderitems_set.all()        
         checkout,created =CheckOut.objects.get_or_create(customer = customer,order=order,is_completed = False)
@@ -140,13 +139,11 @@ def updateItem(req):
 
     orderItems.save()
     # print(orderItems.quantity)
-    Item_qty = orderItems.quantity
 
-    if orderItems.quantity <= 0:
-        
-        orderItems.delete()
+    # if orderItems.quantity <= 0:
+    #     orderItems.delete()
     cart(req)
-    item_quantity = Item_qty
+    item_quantity = order.each_orderitems_quantity
     all_total = order.get_all_total
     items_count = order.get_items_count
 
@@ -165,7 +162,7 @@ def add_to_checkout(req,product_id):
     count = cart_count(req)
     if req.user.is_authenticated:
         customer = Customer.objects.get(user = req.user)
-        product = Product.objects.get(pk = product_id)
+        product = get_object_or_404(Product,pk= product_id)
         order = Order.objects.get(customer = customer)
 
         order_items = OrderItems.objects.get(product=product,order = order)    
@@ -203,14 +200,7 @@ def cart_count(req):
             count= order.get_items_count
         except:
             count = 0
-            
+            return redirect('/register/register')
     else:
         count = 0
     return count
-
-def is_json(req):
-    try:
-        json.loads(req)
-    except:
-        return False
-    return True
