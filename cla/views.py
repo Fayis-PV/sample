@@ -69,7 +69,7 @@ def cart(req):
         try:
             customer = Customer.objects.get(user = req.user)
         except:
-            return redirect('/register/register')
+            redirect('/register/register')
 
         order , created = Order.objects.get_or_create(customer = customer, complete= False)
         order_items = order.orderitems_set.all()
