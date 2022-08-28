@@ -44,8 +44,8 @@
                     <br>
                   <tbody>
                       {% for item in order_items %}
-<!--                       <div > -->
-                          <tr class='card' id="card-{{item.product.id}}" style="width: 100%">
+                      <div class='card' id="card-{{item.product.id}}" style="width: 100%">
+                          <tr>
                               <form action="{% url 'cla:add_to_checkout' item.product.id %}" method="POST">
                               {% csrf_token %}
                                   <td scope="col"><div class="text-center"><img style="width:30%;" src="{{item.product.product_img.url}}" alt=""></div></td>
@@ -63,7 +63,7 @@
                                   <td scope="col"><button type="button" data-product="{{item.product.id}}" data-url="{% url 'cla:updateItem' %}" data-action="delete" class="btn btn-danger update-data" value="Remove"></td>
                               </form>
                           </tr>
-<!--                       </div> -->
+                      </div>
                       {% endfor %}
                           
                           
