@@ -4,7 +4,7 @@
 {% block title %}Cart{% endblock title %}
 {% block content %}
 <div class="cart">
-    <div class="container">
+    <div class="container p-1">
       <div class="card well mb-1" style="width: 100%">
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
@@ -38,7 +38,7 @@
 <!--                     {% csrf_token %} -->
                       <div class="row">
                           <div class="col-sm-12">
-                            <h5 class="card-header " >Computer Some Parts Computer Some Parts | Product</h5>
+                            <h5 class="card-header " >{{item.product.product_name}} | Product</h5>
                           </div>
                       </div>
                       <div class="row">
