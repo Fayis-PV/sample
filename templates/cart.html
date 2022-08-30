@@ -34,8 +34,8 @@
                     <img class="bg-white d-block m-auto" src="{% static 'images/product{{item.product.id}}.png' %}" alt="{{item.product.product_name}}">
                 </div>
                 <div class="col">
-<!--                   <form action="{% url 'cla:add_to_checkout' item.product.id %}" method="POST"> -->
-<!--                     {% csrf_token %} -->
+                  <form action="{% url 'cla:add_to_checkout' item.product.id %}" method="POST">
+                    {% csrf_token %}
                       <div class="row">
                           <div class="col-sm-12">
                             <h5 class="card-header " >{{item.product.product_name}} | Product</h5>
@@ -62,7 +62,7 @@
                           </div>
                         </div>
                       </div>
-<!--                   </form> -->
+                  </form>
                 </div>
             </div>
         </div>
