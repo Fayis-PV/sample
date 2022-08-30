@@ -1074,41 +1074,6 @@ ul.social_icon li a:hover {
 .laptop1_img figure {
      margin: 0;
 }
-.cart .card .card-img{
-     display: block;
-     margin: auto;
-     padding: 2vh 0;
-
-}
-.cart .card .col .row:nth-child(2) {
-     margin: 10px 0;
-     display: flex;
-     justify-content: space-around;
-
-}
-.cart .card .col .row:nth-child(2)>div>div{
-    margin: 5vh 0;
-}
-.cart .card .col .row:nth-child(2) .btn-group{
-     margin:0;
-
-}
-.cart .card .col .row:nth-child(2) .btn-group input{
-     width: 10vh;
-}
-
-.cart .card .col .row:last-child .btn-group{
-     width: 90%;
-}
-.cart .card .col .row:last-child .btn-group:last-child .btn{
-     width: 50%;
-}
-
-@media screen and (min-width:575px) {
-     .card>.row{
-          margin-left: 0;
-     }
-}
 
 .laptop1_img figure img {
      width: 100%;
@@ -1126,6 +1091,48 @@ ul.social_icon li a:hover {
 .cart .titlepage h2{
      color: #fff;
      border-bottom: 1px solid #fff;
+}
+
+.cart .card .card-img{
+     display: block;
+     margin: auto;
+     padding: 2vh 0;
+
+}
+
+.cart .card .col .row:nth-child(2) {
+     margin: 10px 0;
+     display: flex;
+     justify-content: space-around;
+
+}
+
+.cart .card .col .row:nth-child(2)>div>div{
+    margin: 5vh 0;
+}
+
+.cart .card .col .row:nth-child(2) .btn-group{
+     margin:0;
+
+}
+
+.cart .card .col .row:nth-child(2) .btn-group input{
+     width: 10vh;
+}
+
+
+.cart .card .col .row:last-child .btn-group{
+     width: 90%;
+}
+
+.cart .card .col .row:last-child .btn-group:last-child .btn{
+     width: 50%;
+}
+
+@media screen and (min-width:575px) {
+     .card>.row{
+          margin-left: 0;
+     }
 }
 
 /* end cart  */
