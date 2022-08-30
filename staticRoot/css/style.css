@@ -1084,7 +1084,7 @@ ul.social_icon li a:hover {
 /* cart  */
 
 .cart{
-     background: url(../images/contact_g.jpg) no-repeat 100% 100%;
+     background: url(../images/contact_g.jpg) repeat 100% 100%;
      padding: 30px 0;
 }
 
