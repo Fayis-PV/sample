@@ -31,7 +31,7 @@
         <div class="card m-1 bg-light" id="card-{{item.product.id}}">
             <div class="row p-2">
                 <div class="card-img bg-white m-auto col-lg-2 col-md-3 col-sm-4 " style="width:90%" >
-                    <img class="bg-white d-block m-auto" src="{{item.product.product_img.url}}" alt="">
+                    <img class="bg-white d-block m-auto" src="{% static'images/product{{item.product.id}}.png' %}" alt="{{item.product.product_name}}">
                 </div>
                 <div class="col">
 <!--                   <form action="{% url 'cla:add_to_checkout' item.product.id %}" method="POST"> -->
