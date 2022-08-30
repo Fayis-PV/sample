@@ -26,22 +26,55 @@
             </div>
         </div>
         <br>
-        <div class="card m-1 bg-light">
-            <div class="row">
-                <div class="col-lg-2 col-md-3 col-sm-6">
-                    <img src="" alt="">
+        {% if order_items %}
+        {% for item in order_items %}
+        <div class="card m-1 bg-light" id="card-{{item.product.id}}">
+            <div class="row p-2">
+                <div class="card-img bg-white m-auto col-lg-2 col-md-3 col-sm-4 " style="width:90%" >
+                    <img class="bg-white d-block m-auto" src="{{item.product.product_img.url}}" alt="">
                 </div>
                 <div class="col">
-                    <div class="row">
-                        <div class="col-lg- col-md- col-sm-"></div>
-                        <div class="col-lg- col-md- col-sm-"></div>
-                        <div class="col-lg- col-md- col-sm-"></div>
-                        <div class="col-lg- col-md- col-sm-"></div>
-                        <div class="col-lg- col-md- col-sm-"></div>
-                    </div>
+                  <form action="{% url 'cla:add_to_checkout' item.product.id %}" method="POST">
+                    {% csrf_token %}
+                      <div class="row">
+                          <div class="col-sm-12">
+                            <h5 class="card-header " >Computer Some Parts Computer Some Parts | Product</h5>
+                          </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-ls-3">$ {{item.product.product_price}}</div>
+                        <div class="col-ls-">
+                          <div class="btn-group">
+                            <button data-action="add"  data-product="{{item.product.id}}" data-url="{% url 'cla:updateItem' %}" class="btn btn-info text-center align-center update-data add-btn"><strong>+</strong></button>
+                            <input class="bg-light text-center m-1 border-light item-qty form-control p-0" name="quantity" id="{{item.product.id}}"  value="{{item.quantity}}">
+                            <button data-action="remove" onclick=check()  data-product="{{item.product.id}}" data-url="{% url 'cla:updateItem' %}" class="btn btn-info text-center align-center update-data min-btn"><strong>-</strong></button>
+                          </div>
+                        </div>
+                        <div class="col-ls-3 border-light">
+                          $ {{item.total_price}}
+                        </div>
+                      </div>
+                      <div class="row m-auto">
+                        <div class="col-sm-12 text-center ">
+                          <div class="btn-group">
+                            <input type="submit" class="btn btn-success text-center align-center">Check</button>
+                            <button data-product="{{item.product.id}}" data-url="{% url 'cla:updateItem' %}" data-action="delete" class="btn btn-danger update-data">Remove</button>
+                          </div>
+                        </div>
+                      </div>
+                  </form>
                 </div>
             </div>
         </div>
+        {% endfor %}
+        {% else %}
+        <div class="card p-2">
+          <div class="card-text m-auto">
+            <h5 class="mr-3 d-inline-block"><strong>Cart found Empty</strong></h5>
+            <a href="{% url 'cla:product' %}" class="btn btn-primary ml-3">Go for Shopping -></a>
+          </div>
+        </div>
+        {% endif %}
         
 <!--         <div class="card well mb-1" style="width: 100%">
              <div class="row g-3">
