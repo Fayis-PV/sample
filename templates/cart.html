@@ -45,9 +45,9 @@
                         <div class="col-ls-3">$ {{item.product.product_price}}</div>
                         <div class="col-ls-">
                           <div class="btn-group">
-                            <button data-action="add"  data-product="{{item.product.id}}" data-url="{% url 'cla:updateItem' %}" class="btn btn-info text-center align-center update-data add-btn"><strong>+</strong></button>
+                            <button data-action="add" type="button"  data-product="{{item.product.id}}" data-url="{% url 'cla:updateItem' %}" class="btn btn-info text-center align-center update-data add-btn"><strong>+</strong></button>
                             <input class="bg-light text-center m-1 border-light item-qty form-control p-0" name="quantity" id="{{item.product.id}}"  value="{{item.quantity}}">
-                            <button data-action="remove" onclick=check()  data-product="{{item.product.id}}" data-url="{% url 'cla:updateItem' %}" class="btn btn-info text-center align-center update-data min-btn"><strong>-</strong></button>
+                            <button data-action="remove"  type="button" onclick=check()  data-product="{{item.product.id}}" data-url="{% url 'cla:updateItem' %}" class="btn btn-info text-center align-center update-data min-btn"><strong>-</strong></button>
                           </div>
                         </div>
                         <div class="col-ls-3 border-light">
@@ -58,7 +58,7 @@
                         <div class="col-sm-12 text-center ">
                           <div class="btn-group">
                             <input type="submit" class="btn btn-success text-center align-center" value="Check">
-                            <button data-product="{{item.product.id}}" data-url="{% url 'cla:updateItem' %}" data-action="delete" class="btn btn-danger update-data">Remove</button>
+                            <button type="button" data-product="{{item.product.id}}" data-url="{% url 'cla:updateItem' %}" data-action="delete" class="btn btn-danger update-data">Remove</button>
                           </div>
                         </div>
                       </div>
